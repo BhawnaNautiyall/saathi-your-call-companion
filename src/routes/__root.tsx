@@ -8,6 +8,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { UserRound } from "lucide-react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -77,14 +78,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Saathi — AI voice agent" },
+      { name: "description", content: "Saathi handles customer-service calls while you remain in control." },
+      { name: "author", content: "Saathi" },
+      { property: "og:title", content: "Saathi — AI voice agent" },
+      { property: "og:description", content: "Customer-service calls, handled with your permission." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
@@ -92,6 +92,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" },
     ],
   }),
   shellComponent: RootShell,
@@ -119,8 +122,26 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <div className="min-h-screen bg-background text-foreground">
+        <header className="sticky top-0 z-50 border-b border-border/70 bg-background/80 backdrop-blur-xl">
+          <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:px-8">
+            <Link to="/" aria-label="Saathi home" className="group flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+              <span className="flex size-8 items-center justify-center rounded-full border border-primary/50 bg-primary/10" aria-hidden="true">
+                <span className="size-2 rounded-full bg-primary shadow-[0_0_16px_var(--primary)]" />
+              </span>
+              <span className="text-sm font-bold tracking-[0.22em]">SAATHI</span>
+            </Link>
+            <nav aria-label="Primary navigation" className="flex items-center gap-1">
+              <Link to="/" activeOptions={{ exact: true }} activeProps={{ className: "bg-accent text-foreground" }} className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground">Home</Link>
+              <Link to="/calls" activeProps={{ className: "bg-accent text-foreground" }} className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground">Calls</Link>
+              <button type="button" aria-label="Open profile settings" className="ml-2 flex size-9 items-center justify-center rounded-full border border-border bg-surface-soft text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                <UserRound className="size-4" />
+              </button>
+            </nav>
+          </div>
+        </header>
+        <Outlet />
+      </div>
     </QueryClientProvider>
   );
 }
