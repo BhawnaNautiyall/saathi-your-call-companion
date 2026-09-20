@@ -10,33 +10,128 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CallRouteImport } from './routes/call'
+import { Route as CallsRouteImport } from './routes/calls'
+import { Route as HandoffRouteImport } from './routes/handoff'
+import { Route as PermissionRouteImport } from './routes/permission'
+import { Route as SummaryRouteImport } from './routes/summary'
+import { Route as UnderstandingRouteImport } from './routes/understanding'
+import { Route as VerificationRouteImport } from './routes/verification'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CallRoute = CallRouteImport.update({
+  id: '/call',
+  path: '/call',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CallsRoute = CallsRouteImport.update({
+  id: '/calls',
+  path: '/calls',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HandoffRoute = HandoffRouteImport.update({
+  id: '/handoff',
+  path: '/handoff',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PermissionRoute = PermissionRouteImport.update({
+  id: '/permission',
+  path: '/permission',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SummaryRoute = SummaryRouteImport.update({
+  id: '/summary',
+  path: '/summary',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UnderstandingRoute = UnderstandingRouteImport.update({
+  id: '/understanding',
+  path: '/understanding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VerificationRoute = VerificationRouteImport.update({
+  id: '/verification',
+  path: '/verification',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/call': typeof CallRoute
+  '/calls': typeof CallsRoute
+  '/handoff': typeof HandoffRoute
+  '/permission': typeof PermissionRoute
+  '/summary': typeof SummaryRoute
+  '/understanding': typeof UnderstandingRoute
+  '/verification': typeof VerificationRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/call': typeof CallRoute
+  '/calls': typeof CallsRoute
+  '/handoff': typeof HandoffRoute
+  '/permission': typeof PermissionRoute
+  '/summary': typeof SummaryRoute
+  '/understanding': typeof UnderstandingRoute
+  '/verification': typeof VerificationRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/call': typeof CallRoute
+  '/calls': typeof CallsRoute
+  '/handoff': typeof HandoffRoute
+  '/permission': typeof PermissionRoute
+  '/summary': typeof SummaryRoute
+  '/understanding': typeof UnderstandingRoute
+  '/verification': typeof VerificationRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/call'
+    | '/calls'
+    | '/handoff'
+    | '/permission'
+    | '/summary'
+    | '/understanding'
+    | '/verification'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/call'
+    | '/calls'
+    | '/handoff'
+    | '/permission'
+    | '/summary'
+    | '/understanding'
+    | '/verification'
+  id:
+    | '__root__'
+    | '/'
+    | '/call'
+    | '/calls'
+    | '/handoff'
+    | '/permission'
+    | '/summary'
+    | '/understanding'
+    | '/verification'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CallRoute: typeof CallRoute
+  CallsRoute: typeof CallsRoute
+  HandoffRoute: typeof HandoffRoute
+  PermissionRoute: typeof PermissionRoute
+  SummaryRoute: typeof SummaryRoute
+  UnderstandingRoute: typeof UnderstandingRoute
+  VerificationRoute: typeof VerificationRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +143,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/call': {
+      id: '/call'
+      path: '/call'
+      fullPath: '/call'
+      preLoaderRoute: typeof CallRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calls': {
+      id: '/calls'
+      path: '/calls'
+      fullPath: '/calls'
+      preLoaderRoute: typeof CallsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/handoff': {
+      id: '/handoff'
+      path: '/handoff'
+      fullPath: '/handoff'
+      preLoaderRoute: typeof HandoffRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/permission': {
+      id: '/permission'
+      path: '/permission'
+      fullPath: '/permission'
+      preLoaderRoute: typeof PermissionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/summary': {
+      id: '/summary'
+      path: '/summary'
+      fullPath: '/summary'
+      preLoaderRoute: typeof SummaryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/understanding': {
+      id: '/understanding'
+      path: '/understanding'
+      fullPath: '/understanding'
+      preLoaderRoute: typeof UnderstandingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/verification': {
+      id: '/verification'
+      path: '/verification'
+      fullPath: '/verification'
+      preLoaderRoute: typeof VerificationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CallRoute: CallRoute,
+  CallsRoute: CallsRoute,
+  HandoffRoute: HandoffRoute,
+  PermissionRoute: PermissionRoute,
+  SummaryRoute: SummaryRoute,
+  UnderstandingRoute: UnderstandingRoute,
+  VerificationRoute: VerificationRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
