@@ -1,5 +1,35 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageFrame, RecentCalls } from "@/components/saathi";
 
-export const Route = createFileRoute("/calls")({ head: () => ({ meta: [{ title: "Call history — Saathi" }, { name: "description", content: "Review your recent Saathi customer-service calls." }, { property: "og:title", content: "Call history — Saathi" }, { property: "og:description", content: "Call outcomes, status, and next steps in one place." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: Calls });
-function Calls() { return <PageFrame><div className="max-w-3xl"><p className="text-xs font-semibold tracking-[0.18em] text-primary">YOUR CALLS</p><h1 className="mt-4 text-4xl font-semibold md:text-5xl">Call history</h1><p className="mt-4 text-lg text-muted-foreground">Every outcome, decision, and next step.</p></div><section className="mt-12 border-t border-border"><RecentCalls /></section></PageFrame>; }
+export const Route = createFileRoute("/calls")({
+  head: () => ({
+    meta: [
+      { title: "Call history — Saathi" },
+      { name: "description", content: "Review your recent Saathi customer-service calls." },
+      { property: "og:title", content: "Call history — Saathi" },
+      {
+        property: "og:description",
+        content: "Call outcomes, status, and next steps in one place.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+    ],
+  }),
+  component: Calls,
+});
+function Calls() {
+  return (
+    <PageFrame>
+      <div className="max-w-3xl">
+        <p className="text-xs font-semibold tracking-[0.18em] text-primary">YOUR CALLS</p>
+        <h1 className="mt-4 text-4xl font-semibold md:text-5xl">Call history</h1>
+        <p className="mt-4 text-lg text-muted-foreground">
+          Every outcome, decision, and next step.
+        </p>
+      </div>
+      <section className="mt-12 border-t border-border">
+        <RecentCalls />
+      </section>
+    </PageFrame>
+  );
+}
