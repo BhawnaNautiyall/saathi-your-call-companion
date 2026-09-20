@@ -52,7 +52,7 @@ export function UnderstandingCard() {
   return <Card className="glass-panel overflow-hidden"><div className="divide-y divide-border">{rows.map(([label, value]) => <div key={label} className="grid gap-1 px-5 py-5 sm:grid-cols-[9rem_1fr] md:px-7"><span className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">{label}</span><span className="font-medium">{value}</span></div>)}</div></Card>;
 }
 
-export function PermissionBadge({ allowed, title, detail }: { allowed: boolean; title: string; detail?: string }) {
+export function PermissionBadge({ allowed, title, detail }: { allowed: boolean; title: string; detail?: string | undefined }) {
   return <div className="flex items-start gap-3 py-3"><span className={`mt-0.5 flex size-5 items-center justify-center rounded-full ${allowed ? "bg-success/15 text-success" : "bg-muted text-muted-foreground"}`}>{allowed ? <Check className="size-3" /> : <X className="size-3" />}</span><div><p className="text-sm font-medium">{title}</p>{detail && <p className="mt-0.5 text-sm text-muted-foreground">{detail}</p>}</div></div>;
 }
 
@@ -66,10 +66,10 @@ export function CallVisualizer({ state }: { state: CallState }) {
   const mode = callStateCopy[state].mode;
   const bars = useMemo(() => Array.from({ length: 17 }, (_, index) => 24 + ((index * 19) % 62)), []);
   return <div className="relative flex aspect-square w-[min(66vw,22rem)] items-center justify-center" aria-hidden="true">
-    {mode === "pulse" && <motion.div className="absolute inset-10 rounded-full border border-primary/40" animate={reduce ? undefined : { scale: [0.88, 1.13], opacity: [0.55, 0] }} transition={{ duration: 2.2, repeat: Infinity, ease: "easeOut" }} />}
+    {mode === "pulse" && <motion.div className="absolute inset-10 rounded-full border border-primary/40" animate={reduce ? false : { scale: [0.88, 1.13], opacity: [0.55, 0] }} transition={{ duration: 2.2, repeat: Infinity, ease: "easeOut" }} />}
     <div className="absolute inset-14 rounded-full border border-primary/20 bg-primary/5 shadow-[0_0_100px_var(--glow)]" />
     <div className="relative flex h-24 items-center gap-1.5">
-      {bars.map((height, index) => <motion.span key={index} className="w-1 rounded-full bg-primary" style={{ height: `${height}%` }} animate={reduce ? undefined : { scaleY: mode === "calm" ? [0.3, 0.5, 0.3] : [0.35, 1, 0.35], opacity: [0.45, 1, 0.45] }} transition={{ duration: mode === "voice" ? 0.75 : 1.8, repeat: Infinity, delay: index * 0.045, ease: "easeInOut" }} />)}
+      {bars.map((height, index) => <motion.span key={index} className="w-1 rounded-full bg-primary" style={{ height: `${height}%` }} animate={reduce ? false : { scaleY: mode === "calm" ? [0.3, 0.5, 0.3] : [0.35, 1, 0.35], opacity: [0.45, 1, 0.45] }} transition={{ duration: mode === "voice" ? 0.75 : 1.8, repeat: Infinity, delay: index * 0.045, ease: "easeInOut" }} />)}
     </div>
   </div>;
 }
@@ -122,7 +122,9 @@ export function useCallSimulation() {
     const index = simulatedSequence.indexOf(state);
     if (index < 0 || index === simulatedSequence.length - 1) return;
     const delay = state === "HOLD" ? 5000 : 2600;
-    const timer = window.setTimeout(() => setState(simulatedSequence[index + 1]), delay);
+    const nextState = simulatedSequence[index + 1];
+    if (!nextState) return;
+    const timer = window.setTimeout(() => setState(nextState), delay);
     return () => window.clearTimeout(timer);
   }, [state]);
   useEffect(() => { if (state === "VERIFICATION_REQUIRED") navigate({ to: "/verification" }); if (state === "COMPLETED") navigate({ to: "/summary" }); }, [navigate, state]);
