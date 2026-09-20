@@ -1,0 +1,7 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Ear, Mic, PhoneCall } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { HumanDetectedCard, PageFrame } from "@/components/saathi";
+
+export const Route = createFileRoute("/handoff")({ head: () => ({ meta: [{ title: "Representative detected — Saathi" }, { name: "description", content: "Listen, join, or take control when a representative answers." }, { property: "og:title", content: "Someone is on the line — Saathi" }, { property: "og:description", content: "Saathi found a customer-service representative." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: Handoff });
+function Handoff() { return <PageFrame narrow><p className="text-xs font-semibold tracking-[0.18em] text-success">HUMAN DETECTED</p><div className="mt-5"><HumanDetectedCard /></div><div className="sticky bottom-5 mt-8 grid grid-cols-1 gap-3 rounded-lg border border-border bg-background/90 p-3 backdrop-blur-xl sm:grid-cols-3"><Button size="xl" variant="call" asChild><Link to="/call"><Ear />Listen to call</Link></Button><Button size="xl" variant="call" asChild><Link to="/call"><Mic />Join call</Link></Button><Button size="xl" variant="premium" asChild><Link to="/call"><PhoneCall />Take over</Link></Button></div></PageFrame>; }

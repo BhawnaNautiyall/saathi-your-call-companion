@@ -1,0 +1,7 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Check, FileText } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { CallSummary, PageFrame } from "@/components/saathi";
+
+export const Route = createFileRoute("/summary")({ head: () => ({ meta: [{ title: "Call complete — Saathi" }, { name: "description", content: "Review the outcome and next steps from your Saathi call." }, { property: "og:title", content: "Call complete — Saathi" }, { property: "og:description", content: "A clear summary of what happened on the call." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: Summary });
+function Summary() { return <PageFrame narrow><div className="flex size-11 items-center justify-center rounded-full bg-success/10 text-success"><Check /></div><h1 className="mt-6 text-4xl font-semibold md:text-5xl">Call complete</h1><p className="mt-3 text-lg text-muted-foreground">Here’s what happened with Zomato.</p><div className="mt-9"><CallSummary /></div><div className="mt-7 flex gap-3"><Button variant="outline" size="xl"><FileText />View transcript</Button><Button variant="premium" size="xl" className="flex-1" asChild><Link to="/">Done</Link></Button></div></PageFrame>; }
